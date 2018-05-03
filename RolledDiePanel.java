@@ -55,7 +55,7 @@ public class RolledDiePanel extends JPanel {
 		mainPanel.setLayout(new GridLayout(numRows, numCols));
 		mainPanel.setBackground(new Color(0,0,0));
 		mainPanel.setVisible(true);
-		addTravelLabel();
+		
 		wordsPanel.setBackground(Color.black);
 		//this.add(topFiller);
 		this.add(mainPanel);
@@ -109,7 +109,7 @@ public class RolledDiePanel extends JPanel {
 			
 			
 		}
-	
+		addTravelLabel();
 		mainPanel.setVisible(true);
 		
 		
