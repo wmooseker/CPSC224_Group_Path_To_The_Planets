@@ -38,8 +38,6 @@ public class RolledDiePanel extends JPanel {
 			loadPlanetImages();
 			
 			this.setUpPanel();
-			//formatContinueButton();
-			//mainPanel.add(continueButton);
 			this.setVisible(true);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -47,9 +45,6 @@ public class RolledDiePanel extends JPanel {
 	}
 
 	private void setUpPanel() throws IOException {
-		//Filler topFiller = new Filler(new Dimension(0,80), new Dimension(0,80) , new Dimension(0,80) );
-		//Filler bottomFiller = new Filler(new Dimension(0,80), new Dimension(0,80) , new Dimension(0,80) );
-		//this.add(bottomFiller);
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(Color.black);
 		mainPanel.setLayout(new GridLayout(numRows, numCols));
@@ -57,12 +52,13 @@ public class RolledDiePanel extends JPanel {
 		mainPanel.setVisible(true);
 		
 		wordsPanel.setBackground(Color.black);
-		//this.add(topFiller);
 		this.add(mainPanel);
+		
 		Filler newSpace = new Filler(new Dimension(0, 80), new Dimension(0, 80), new Dimension(Short.MAX_VALUE, 80));
 		// make the space 'see through'
 		newSpace.setOpaque(false);
 		this.add(newSpace);
+		
 		this.add(wordsPanel);
 		
 	}
@@ -76,7 +72,7 @@ public class RolledDiePanel extends JPanel {
 			int playerHandVal = 0;
 			
 					
-			switch (thisPlayer.getHandValue(i)){
+			switch (checkIfPlanetIsScored(i)){
 			case ("MERCURY") : { playerHandVal = 0;
 				break;}
 			case ("VENUS") : { playerHandVal = 1;
@@ -96,36 +92,30 @@ public class RolledDiePanel extends JPanel {
 			setTravelValue(i);
 			planetImages[i] = new PlanetImage(playerHandVal);
 	
-			
 			rollOutcomes[i] = new JLabel(imageIcons[i]);
 			rollOutcomes[i].setIcon(new ImageIcon(planetImages[i].getImage()));
-			//mainPanel.setOpaque(true);
 			rollOutcomes[i].setVerticalAlignment(JLabel.NORTH);
 			rollOutcomes[i].setHorizontalAlignment(JLabel.CENTER);
 			
-			
 			mainPanel.add(rollOutcomes[i]);
-			
-			
-			
 		}
 		addTravelLabel();
-		mainPanel.setVisible(true);
-		
-		
+		displayBonusLabel();
+		mainPanel.setVisible(true);	
 	}
 
 	private void addDieLabels(){
 			for(int i = 0; i <7 ; i++){
-				dieLabels[i] = new JLabel(dieNames[i] + " Die:");
+				dieLabels[i] = new JLabel(dieNames[i] + " DIE:");
 				dieLabels[i].setVerticalAlignment(JLabel.NORTH);
 				dieLabels[i].setHorizontalAlignment(JLabel.CENTER);
-				dieLabels[i].setFont(new Font("Krungthep", 1, 14));
+				dieLabels[i].setFont(new Font("Krungthep", 1, 18));
 				dieLabels[i].setForeground(Color.white);
 				dieLabels[i].setAlignmentX(Component.CENTER_ALIGNMENT);
 				mainPanel.add(dieLabels[i]);
 			}
 		}
+	
 	public void setTravelValue(int index){
 		if(thisPlayer.getHandValue(index)== dieNames[index]){
 			dieName = dieNames[index];
@@ -141,18 +131,58 @@ public class RolledDiePanel extends JPanel {
 		travelLabelx.setFont(new Font("Krungthep", 1, 25));
 		travelLabelx.setForeground(Color.white);
 		wordsPanel.add(travelLabelx);
+		if(travelLabel.size() == 0) {
+			JLabel none = new JLabel("0 planets");
+			none.setFont(new Font("Krungthep", 1, 25));
+			none.setForeground(Color.white);
+			wordsPanel.add(none);	
+		}
+		else {
 		for(String s : travelLabel){
-			System.out.println(s);
 			JLabel p = new JLabel(s);
 			p.setFont(new Font("Krungthep", 1, 25));
 			p.setForeground(Color.white);
-			wordsPanel.add(travelLabelx);
+			
 			
 			wordsPanel.add(p);
 			wordsPanel.setVisible(true);
 		}
+		}
 		
 	
 	}
+	private void displayBonusLabel(){
+		if(thisPlayer.playerCard.scored[8] != false){
+			JLabel smallStraightLabel = new JLabel("You Earned The Small Straight Bonus");
+			smallStraightLabel.setFont(new Font("Krungthep", 1, 14));
+			smallStraightLabel.setForeground(Color.white);
+			wordsPanel.add(smallStraightLabel);
+			
+		}
+		else if(thisPlayer.playerCard.scored[9] != false){
+			JLabel largeStraightLabel = new JLabel("You Earned The Large Straight Bonus");
+			largeStraightLabel.setFont(new Font("Krungthep", 1, 14));
+			largeStraightLabel.setForeground(Color.white);
+			wordsPanel.add(largeStraightLabel);
+			
+		}
+		else if(thisPlayer.playerCard.scored[7] != false){
+			JLabel triForceLabel = new JLabel("You Earned The Triforce Bonus");
+			triForceLabel.setFont(new Font("Krungthep", 1, 14));
+			triForceLabel.setForeground(Color.white);
+			wordsPanel.add(triForceLabel);
+			
+		}
+	}
+	private String checkIfPlanetIsScored(int index){
+		String dieValue = new String("");
+		if(thisPlayer.playerCard.scored[index] == true){
+			dieValue = thisPlayer.getHandValue(index);
+		}
+		else {
+			dieValue = "";
+		}
+		return dieValue;
+	}
 		
-}	
+}

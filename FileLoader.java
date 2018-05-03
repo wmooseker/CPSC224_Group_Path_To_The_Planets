@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 abstract public class FileLoader {
 	
-	private final String[] imageNames = new String[]{"Images/mercury.jpg" , "Images/venus.jpg" , "Images/mars.jpg" , "Images/jupiter.jpg" , "Images/saturn.jpg" , "Images/uranus.jpg", "Images/neptune.jpg","Images/stars.jpg" , "Images/fancyStars.jpg"};
+	private final String[] imageNames = new String[]{"components/mercury.jpg" , "components/venus.jpg" , "components/mars.jpg" , "components/jupiter.jpg" , "components/saturn.jpg" , "components/uranus.jpg", "components/neptune.jpg","components/stars.jpg" , "components/fancyStars.jpg"};
 	
 	
 	

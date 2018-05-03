@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,13 +40,5 @@ public class PlanetImage extends JPanel {
 		setSize(size);
 		setLayout(null);
 	}
-	
-	/*public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
-		// Draw the background image.
-		g.drawImage(newImage, 0, 0, this);
-	}*/
-	
 	
 }
